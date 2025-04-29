@@ -11,7 +11,7 @@ interface Props {
 
 export default function BarangForm({ onAdd, onUpdate, editData }: Props) {
   const [nama, setNama] = useState("");
-  const [jumlah, setJumlah] = useState(1);
+  const [jumlah, setJumlah] = useState("");
 
   useEffect(() => {
     if (editData) {
@@ -22,7 +22,7 @@ export default function BarangForm({ onAdd, onUpdate, editData }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!nama || jumlah <= 0) return;
+    if (!nama || jumlah <= "") return;
 
     const updatedBarang: Barang = {
       id: editData ? editData.id : Date.now().toString(),
@@ -37,7 +37,7 @@ export default function BarangForm({ onAdd, onUpdate, editData }: Props) {
     }
 
     setNama("");
-    setJumlah(1);
+    setJumlah("");
   };
 
   return (
@@ -57,11 +57,10 @@ export default function BarangForm({ onAdd, onUpdate, editData }: Props) {
 
         <div className="w-1/3 pl-2">
           <input
-            type="number"
             placeholder="Jumlah"
             min={1}
             value={jumlah}
-            onChange={(e) => setJumlah(Number(e.target.value))}
+            onChange={(e) => setJumlah(e.target.value)}
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border text-[#222222] border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
           />
         </div>
